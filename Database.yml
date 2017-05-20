@@ -50,12 +50,12 @@
         - localhost
         - "{{ ansible_hostname }}"
      
-    - name: Remove the test database
-      mysql_db:
-        name: test
-        state: absent
-      notify:
-        - Restart MySQL
+#    - name: Remove the test database
+#      mysql_db:
+#        name: test
+#        state: absent
+#      notify:
+#        - Restart MySQL
 
     - name: check if DB exists
       shell: "mysql -e 'SHOW DATABASES;' | grep {{ db_name }}"
@@ -78,6 +78,7 @@
         state: present
     
         
+  handlers:
     - name: Restart MySQL
       service:
         name: mysql
