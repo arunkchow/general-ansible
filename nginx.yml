@@ -3,7 +3,12 @@
   vars_files:
   - ./vars.yml
 
-  tasks:   
+  tasks:
+
+    - name: Install Python Pycurl
+      apt:
+        name: python-pycurl
+        state: latest  
 
     - name: Install the Nginx Repository 
       apt_repository:
@@ -36,6 +41,18 @@
       notify:
         - Restart Nginx
 
+    - name: Apache | add apache iptable rule
+      command: /sbin/iptables -I INPUT 1 -p tcp --dport http -j ACCEPT -m comment --comment "Nginx"
+      command: /sbin/iptables -I INPUT 1 -p tcp --dport https -j ACCEPT -m comment --comment "Nginx"
+#      sudo: true
+
+    - name: save iptables
+      command: iptables-save
+ #     sudo: true
+ 
+    - name: restart iptables
+      service: name=ufw state=restarted
+  #    sudo: true
 
 
   handlers:
