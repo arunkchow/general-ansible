@@ -1,8 +1,10 @@
 vagrant -v
-vagrant box add hashicorp/precise32
-vagrant init hashicorp/precise32
+vagrant box add ubuntu/trusty64
+vagrant init ubuntu/trusty64
 vagrant up
 vagrant ssh
+vagrant halt
+vagrant destroy
 
 vi Vagrantfile
 
